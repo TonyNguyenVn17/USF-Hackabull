@@ -9,5 +9,8 @@ module.exports = {
   endOfLine: "lf",
   bracketSpacing: false,
   proseWrap: "never",
-  plugins: ["prettier-plugin-tailwindcss"],
+  tailwindPreserveWhitespace: false,
+  tailwindPreserveDuplicates: false,
+  tailwindFunctions: ["clsx"],
+  plugins: ["prettier-plugin-tailwindcss", "prettier-plugin-organize-imports"],
 };
