@@ -12,5 +12,5 @@ module.exports = {
   tailwindPreserveWhitespace: false,
   tailwindPreserveDuplicates: false,
   tailwindFunctions: ["clsx"],
-  plugins: ["prettier-plugin-tailwindcss", "prettier-plugin-organize-imports"],
+  plugins: ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"],
 };
