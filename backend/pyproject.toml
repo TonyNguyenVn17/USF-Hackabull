@@ -1,0 +1,40 @@
+[project]
+name = "hackabull-backend"
+version = "0.1.0"
+description = "FastAPI backend with Firebase integration"
+requires-python = ">=3.9"
+
+[tool.setuptools]
+packages = ["app", "core"]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+extend-exclude = '''
+# A regex preceded with ^/ will apply only to files and directories
+# in the root of the project.
+^/venv  # exclude venv directory
+'''
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning",
+]
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203"
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    "venv",
+]
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"

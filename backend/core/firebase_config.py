@@ -10,6 +10,7 @@ from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
+
 class FirebaseConfig:
     _instance = None
     _db = None
@@ -26,17 +27,19 @@ class FirebaseConfig:
         if not firebase_admin._apps:
             try:
                 # Get the absolute path to .env.local
-                env_path = Path(__file__).parent.parent / '.env.local'
+                env_path = Path(__file__).parent.parent / ".env.local"
                 load_dotenv(dotenv_path=env_path)
-                
+
                 cred_path = os.getenv("FIREBASE_CRED_PATH")
                 if not cred_path:
-                    raise ValueError("FIREBASE_CRED_PATH not set in environment variables")
-                
+                    raise ValueError(
+                        "FIREBASE_CRED_PATH not set in environment variables"
+                    )
+
                 # Ensure the credential file exists
                 if not Path(cred_path).exists():
                     raise ValueError(f"Credential file not found at: {cred_path}")
-                
+
                 cred = credentials.Certificate(cred_path)
                 firebase_admin.initialize_app(cred)
                 logger.info("Firebase initialized successfully")

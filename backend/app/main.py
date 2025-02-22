@@ -17,14 +17,17 @@ app.add_middleware(
 # Initialize Firebase
 firebase = FirebaseConfig()
 
+
 class User(BaseModel):
     name: str
     email: str
     age: int
 
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to Hackabull API"}
+
 
 @app.post("/users/{user_id}")
 async def create_user(user_id: str, user: User):
@@ -37,6 +40,7 @@ async def create_user(user_id: str, user: User):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @app.get("/users/{user_id}")
 async def get_user(user_id: str):
     """Get a user from Firebase"""
@@ -48,6 +52,7 @@ async def get_user(user_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @app.get("/test-firebase")
 async def test_firebase():
     """Test endpoint to verify Firebase connection"""
@@ -57,14 +62,15 @@ async def test_firebase():
         success = await firebase.set_document("test", "test-doc", test_data)
         if not success:
             raise HTTPException(status_code=500, detail="Failed to write to Firestore")
-        
+
         # Test reading from Firestore
         result = await firebase.get_document("test", "test-doc")
         if result is None:
             raise HTTPException(status_code=404, detail="Document not found")
-            
+
         return {"message": "Firebase connection successful", "data": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 # Add more routes here as needed
