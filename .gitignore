@@ -85,7 +85,7 @@ web_modules/
 .yarn-integrity
 
 # virtual environment
-backend/venv/
+.venv/
 __pycache__/
 *.pyc
 

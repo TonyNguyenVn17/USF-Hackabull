@@ -50,9 +50,9 @@ exceptiongroup==1.2.2
     #   -r requirements.in
     #   anyio
     #   pytest
-fastapi==0.104.1
+fastapi>=0.68.0
     # via -r requirements.in
-firebase-admin==6.2.0
+firebase-admin>=5.0.0
     # via -r requirements.in
 flake8==7.0.0
     # via -r requirements.in
@@ -196,7 +196,7 @@ pycparser==2.22
     # via
     #   -r requirements.in
     #   cffi
-pydantic==2.5.2
+pydantic>=2.0.0
     # via
     #   -r requirements.in
     #   fastapi
@@ -218,7 +218,7 @@ pyparsing==3.2.1
     #   httplib2
 pytest==8.0.1
     # via -r requirements.in
-python-dotenv==1.0.0
+python-dotenv>=0.19.0
     # via -r requirements.in
 pyyaml==6.0.2
     # via -r requirements.in
@@ -262,7 +262,7 @@ urllib3==2.3.0
     # via
     #   -r requirements.in
     #   requests
-uvicorn==0.24.0
+uvicorn[standard]>=0.15.0
     # via -r requirements.in
 uvloop==0.21.0
     # via -r requirements.in
