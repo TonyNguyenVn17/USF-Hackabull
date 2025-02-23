@@ -33,11 +33,14 @@ async def root():
 async def create_user(user_id: str, user: User):
     """Create a new user in Firebase"""
     try:
+        print(f"Attempting to create user {user_id} with data: {user.model_dump()}")  # Debug print
         success = await firebase.set_document("users", user_id, user.model_dump())
         if not success:
+            print("Firebase operation failed")  # Debug print
             raise HTTPException(status_code=500, detail="Failed to create user")
         return {"message": f"User {user_id} created successfully", "data": user}
     except Exception as e:
+        print(f"Error: {str(e)}")  # Debug print
         raise HTTPException(status_code=500, detail=str(e))
 
 
