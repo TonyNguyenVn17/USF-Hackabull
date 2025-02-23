@@ -2,6 +2,7 @@
 backend/dist/
 backend/build/
 backend/*.egg-info/
+*/*.egg-info/
 backend/hackabull_*
 backend/.pytest_cache/
 backend/__pycache__/
@@ -86,6 +87,7 @@ web_modules/
 
 # virtual environment
 .venv/
+../.venv/
 __pycache__/
 *.pyc
 
