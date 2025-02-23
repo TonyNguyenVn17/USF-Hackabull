@@ -10,3 +10,10 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from datetime import datetime, timedelta
 from typing import Optional
 
+
+router = APIRouter()
+
+@router.post("/login")
+async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    return {"access_token": form_data.username, "token_type": "bearer"}
+
