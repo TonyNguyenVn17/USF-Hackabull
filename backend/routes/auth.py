@@ -4,3 +4,9 @@
 # it will also handle the change password
 # it will also handle the user verification
 # it will also handle the user email verification
+
+from fastapi import APIRouter, HTTPException, Depends
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from datetime import datetime, timedelta
+from typing import Optional
+
