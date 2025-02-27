@@ -1,22 +1,7 @@
 # Backend Documentation for Hackathon Website
 
-## Features
-- **User Authentication & Management**:
-  - RESTful API for user management (CRUD operations)
-  - Firebase integration for data storage
-  - Registration status tracking (pending, accepted, rejected, confirmed)
-  - Batch import support for external registrations
-
-- **Database Operations**: 
-  - Firestore integration for scalable data management
-  - Real-time data synchronization
-  - Secure data access and updates
-
-- **API Endpoints**:
-  - Health check and system status
-  - User management endpoints
-  - Batch operations support
-  - CORS enabled for frontend integration
+## Overview
+This backend serves the Hackathon website, providing essential functionalities for user management, event handling, and more. It is built using FastAPI and integrates with Firebase for data storage and authentication.
 
 ## Tech Stack & Architecture
 
@@ -95,110 +80,44 @@ Client <-> FastAPI Server <-> Firebase Services
 - Secure session management
 - Role-based access control (RBAC)
 
-## Recent Updates (February 2024)
-### New RESTful API Endpoints
-We've added complete RESTful API endpoints for user management:
-- `GET /users`: List all users with optional filters (status, source)
-- `GET /users/{user_id}`: Get a specific user
-- `POST /users/{user_id}`: Create a new user
-- `PUT /users/{user_id}`: Update user details
-- `PATCH /users/{user_id}/status`: Update user registration status
-- `DELETE /users/{user_id}`: Delete a user
-- `POST /users/batch/import`: Batch import users from external sources
-
-### Enhanced User Model
-The User model now includes additional fields for hackathon registration:
-```python
-class User(BaseModel):
-    name: str
-    email: str
-    age: int
-    school: Optional[str]
-    major: Optional[str]
-    graduation_year: Optional[int]
-    github: Optional[str]
-    linkedin: Optional[str]
-    skills: Optional[List[str]]
-    dietary_restrictions: Optional[str]
-    shirt_size: Optional[str]
-    team_id: Optional[str]
-    registration_status: str  # pending, accepted, rejected, confirmed
-    registration_source: str  # direct, google_form, airtable
-    created_at: datetime
-    updated_at: datetime
-```
-
 ## Setup Instructions
 
-### Virtual Environment
-Create and activate a virtual environment to manage Python dependencies:
+### Virtual Environment Setup
+We use Python's built-in `venv` module to manage virtual environments:
 
 ```bash
-# Create environment
+# Create a virtual environment
 python -m venv venv
 
-# Activate environment
-source venv/bin/activate  # Unix/MacOS
-venv\Scripts\activate  # Windows
+# Activate the virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+.\venv\Scripts\activate
+
+# Verify you're in the virtual environment
+which python  # Should point to your venv python
 ```
 
-### Managing Dependencies with `pip-tools`
-This project uses `pip-tools` to manage dependencies efficiently and ensure reproducibility. Instead of editing `requirements.txt` directly, we define dependencies in `requirements.in` and use `pip-compile` to generate a locked requirements file.
+### Installing Dependencies
+We use `requirements.txt` to manage our dependencies:
 
-#### **Install `pip-tools`**
 ```bash
-pip install pip-tools
-```
-
-#### **Define dependencies**
-Instead of modifying `requirements.txt`, list top-level dependencies in `requirements.in`:
-```txt
-Flask
-firebase-admin
-requests
-```
-
-#### **Compile dependencies**
-Use `pip-compile` to resolve and generate a locked `requirements.txt` file:
-```bash
-pip-compile requirements.in
-```
-This outputs a `requirements.txt` file with all pinned dependencies and versions.
-
-#### **Install dependencies**
-To install dependencies from the compiled `requirements.txt`, run:
-```bash
+# Install all dependencies
 pip install -r requirements.txt
+
+# Add new dependencies
+pip install package-name
+pip freeze > requirements.txt
+
+# Update dependencies
+pip install --upgrade -r requirements.txt
 ```
-
-### Using `pyproject.toml` for Dependency Management
-Instead of `requirements.in`, the project can also use `pyproject.toml` for managing dependencies in modern Python workflows. The `pyproject.toml` file contains project metadata and dependencies.
-
-Example `pyproject.toml`:
-```toml
-[tool.poetry]
-name = "hackathon-backend"
-version = "0.1.0"
-description = "Backend for the Hackathon website"
-authors = ["Your Name <you@example.com>"]
-
-[tool.poetry.dependencies]
-python = "^3.8"
-Flask = "^2.0"
-firebase-admin = "^5.0"
-requests = "^2.26"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-```
-
-To install dependencies using `pyproject.toml`, run:
+Remember to always activate your virtual environment before working on the project and deactivate it when you're done:
 ```bash
-poetry install
+# Deactivate the virtual environment when you're done
+deactivate
 ```
-
-If switching between `pip-tools` and `poetry`, ensure the dependency management method remains consistent.
 
 ## Git Workflow
 
@@ -206,8 +125,6 @@ If switching between `pip-tools` and `poetry`, ensure the dependency management 
 - **Main**: Production branch
 - **Development**: Main branch for ongoing development
 - **Feature Branches**: Create feature branches from `development` for new features or bug fixes
-  - Current feature branches:
-    - `feature/user-rest-api`: User management REST API implementation
 
 ### Pulling Updates
 To pull the latest changes from the `development` branch, use:
@@ -261,54 +178,92 @@ curl -X POST http://localhost:8000/users/test123 \
 
 ## Deployment
 
-## Coming Soon
+## Features
 
-### Authentication & Authorization
-- JWT-based authentication system
+### Completed Features
+
+#### User Management
+- Complete RESTful API for user operations:
+  - List users with filters (status, source)
+  - Get specific user details
+  - Create new users
+  - Update user information
+  - Delete users
+  - Batch import from external sources
+- Firebase/Firestore integration for data storage
+- Registration status tracking (pending, accepted, rejected, confirmed)
+
+#### Core Infrastructure
+- FastAPI backend with async support
+- Firebase integration
+- CORS enabled for frontend
+- Health check endpoints
+- Environment variable management
+- Dependency management with pip-tools/poetry
+
+#### Data Model
+- Comprehensive User model with:
+  - Basic info (name, email, age)
+  - Academic details (school, major, graduation year)
+  - Professional links (GitHub, LinkedIn)
+  - Skills and preferences
+  - Registration metadata
+
+### Upcoming Features
+
+#### Authentication System
 - Multi-provider authentication:
-  - Gmail integration
+  - Gmail login
   - USF email verification
   - GitHub OAuth
-  - Custom email-password authentication
-- Role-based access control (Individual, Team, Organizer)
+  - Email-password authentication
+- JWT-based session management
+- Role-based access control
 
-### User Management
-- Enhanced profile management
-- Team features:
-  - Team creation and management
-  - Team matching system
-  - Team size restrictions and validation
-- Unique username enforcement
-- Password security and recovery system
+#### Dashboard & Portal
+- Application status tracking
+- Event information display
+- Profile management
+- Team formation portal (optional)
+- Notification center
 
-### Event Management
-- QR code integration:
-  - Bulls Connect QR integration
-  - Auto-generated unique QR codes
-  - Check-in system
-  - Event attendance tracking
-- Project submission system:
-  - Devpost integration
-  - Project documentation
-  - Team submission validation
+#### Event Management
+- QR code system:
+  - Bulls Connect integration
+  - Event check-in
+  - Attendance tracking
+- Event schedule display
+- Real-time updates
 
-### Communication System 
-- Firebase Cloud Messaging integration:
-  - Real-time notifications
+#### Communication Features
+- Firebase Cloud Messaging:
   - Email notifications
+  - Status updates
   - Important announcements
-  - Status update notifications
   - Push notifications
 
-### Security Features
+#### Security Enhancements (Optional)
 - Data encryption
-- Secure authentication flows
 - Rate limiting
-- Input validation and sanitization
+- Input validation
+- Secure session handling
+- API security best practices
 
-### Admin Dashboard (Optional)
+#### Admin Features (Optional)
 - User management interface
 - Event statistics
-- Check-in management
+- Check-in system
 - Notification management
+- Registration oversight
+
+## Recent Updates (February 2024)
+### New RESTful API Endpoints
+We've added complete RESTful API endpoints for user management:
+- `GET /users`: List all users with optional filters (status, source)
+- `GET /users/{user_id}`: Get a specific user
+- `POST /users/{user_id}`: Create a new user
+- `PUT /users/{user_id}`: Update user details
+- `PATCH /users/{user_id}/status`: Update user registration status
+- `DELETE /users/{user_id}`: Delete a user
+- `POST /users/batch/import`: Batch import users from external sources
 
