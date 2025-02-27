@@ -78,24 +78,38 @@ poetry install
 
 If switching between `pip-tools` and `poetry`, ensure the dependency management method remains consistent.
 
+## Git Workflow
+
+### Branching Strategy
+- **Main**: Main branch for ongoing development.
+- **Development**: Main branch for ongoing development.
+- **Feature Branches**: Create feature branches from `development` for new features or bug fixes.
+
+### Pulling Updates
+To pull the latest changes from the `development` branch, use:
+```bash
+git pull origin development
+```
+
+### Creating a new branch
+To create a new feature branch from `development`, use:
+```bash
+git checkout -b feat/your-feature-name development
+```
+To create a new testing branch from `development`, use:
+```bash
+git checkout -b test/your-test-name development
+```
+
 ## Environment Variables
 Ensure environment variables are set correctly:
 - Development: Use `.env.local` for local testing.
-- Production: Switch to `.env.production` for deployment settings.
 
-## Running Firebase Tests
-Test Firebase integration to verify setup and functionality:
-
-1. **Navigate** to the Firebase test directory:
-   ```bash
-   cd app/firebase_test/
-   ```
-2. **Run the test script**:
-   ```bash
-   python3 test_firebase.py
-   ```
-
-This will check Firestore connectivity and operations, with editable test parameters located in `test_firebase.py`.
+## Running the FastAPI Application
+To start the FastAPI application, run:
+```bash
+   uvicorn app.main:app --reload
+```
 
 ## Deployment
 
